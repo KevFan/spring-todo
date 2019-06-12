@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * User: kevinfan
@@ -24,7 +23,7 @@ public class TodoService {
     UserService userService;
 
     public List<Todo> findAll() {
-        return todoRepository.findAll();
+        return todoRepository.findAllByUser(userService.getCurrentUser());
     }
 
     public TodoResponse create(TodoDTO todoDTO) {
@@ -42,13 +41,13 @@ public class TodoService {
     public TodoResponse update(Long id, TodoDTO todoDTO) {
         TodoResponse todoResponse = new TodoResponse();
 
-        Optional<Todo> todo = todoRepository.findById(id);
-        if (todo.isPresent()) {
-            todo.get().setContent(todoDTO.getContents());
-            todoRepository.save(todo.get());
+        Todo todo = todoRepository.findByIdAndUser(id, userService.getCurrentUser());
+        if (todo != null) {
+            todo.setContent(todoDTO.getContents());
+            todoRepository.save(todo);
 
             todoResponse.setHttpStatus(HttpStatus.ACCEPTED);
-            todoResponse.setTodo(todo.get());
+            todoResponse.setTodo(todo);
         } else {
             todoResponse.setHttpStatus(HttpStatus.NOT_FOUND);
         }
@@ -57,13 +56,13 @@ public class TodoService {
     }
 
     public HttpStatus delete(Long id) {
-        Optional<Todo> todo = todoRepository.findById(id);
+        Todo todo = todoRepository.findByIdAndUser(id, userService.getCurrentUser());
 
-        if (!todo.isPresent()) {
+        if (todo == null) {
             return HttpStatus.NOT_FOUND;
         }
 
-        todoRepository.delete(todo.get());
+        todoRepository.delete(todo);
 
         return HttpStatus.OK;
     }
