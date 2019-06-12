@@ -1,11 +1,10 @@
 package com.todo.controller;
 
 import com.todo.domain.Todo;
+import com.todo.repository.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: kevinfan
@@ -14,10 +13,11 @@ import java.util.List;
 @RestController
 public class TodoController {
 
+    @Autowired
+    private TodoRepository todoRepository;
+
     @RequestMapping("/api/v1/todo")
-    public List<Todo> test() {
-        List<Todo> todos = new ArrayList<>();
-        todos.add(new Todo(1L, "My todo"));
-        return todos;
+    public Iterable<Todo> findAll() {
+        return todoRepository.findAll();
     }
 }

@@ -1,16 +1,26 @@
 package com.todo.domain;
 
+import javax.persistence.*;
+
 /**
  * User: kevinfan
  * Date: 2019-06-12
  */
 
+@Entity
 public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String content;
 
-    public Todo(Long id, String content) {
-        this.id = id;
+    public Todo() {
+
+    }
+
+    public Todo(String content) {
         this.content = content;
     }
 
