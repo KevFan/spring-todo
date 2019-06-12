@@ -1,5 +1,7 @@
 package com.todo.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Data
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,26 +20,9 @@ public class Todo {
     private String content;
 
     public Todo() {
-
     }
 
     public Todo(String content) {
-        this.content = content;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
         this.content = content;
     }
 }
