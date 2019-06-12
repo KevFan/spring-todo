@@ -20,12 +20,16 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
+    @Autowired
+    UserService userService;
+
     public List<Todo> findAll() {
         return todoRepository.findAll();
     }
 
     public TodoResponse create(TodoDTO todoDTO) {
         Todo todo = new Todo(todoDTO.getContents());
+        todo.setUser(userService.getCurrentUser());
         todoRepository.save(todo);
 
         TodoResponse response = new TodoResponse();

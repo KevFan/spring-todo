@@ -1,5 +1,6 @@
 package com.todo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,10 @@ public class Todo {
 
     @Column(nullable = false)
     private String content;
+
+    @OneToOne
+    @JsonIgnore
+    private User user;
 
     public Todo() {
     }
