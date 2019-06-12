@@ -51,4 +51,16 @@ public class TodoService {
 
         return todoResponse;
     }
+
+    public HttpStatus delete(Long id) {
+        Optional<Todo> todo = todoRepository.findById(id);
+
+        if (!todo.isPresent()) {
+            return HttpStatus.NOT_FOUND;
+        }
+
+        todoRepository.delete(todo.get());
+
+        return HttpStatus.OK;
+    }
 }

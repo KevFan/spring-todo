@@ -38,4 +38,9 @@ public class TodoController {
 
         return ResponseEntity.status(response.getHttpStatus()).body(response.getTodo());
     }
+
+    @RequestMapping(path = "/api/v1/todo/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        return new ResponseEntity(todoService.delete(id));
+    }
 }
