@@ -66,4 +66,8 @@ public class TodoService {
 
         return HttpStatus.OK;
     }
+
+    public List<Todo> search(String search) {
+        return todoRepository.findByUserAndAndContentLike(userService.getCurrentUser(), search);
+    }
 }

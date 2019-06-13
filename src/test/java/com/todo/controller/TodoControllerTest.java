@@ -78,4 +78,15 @@ public class TodoControllerTest extends ApiTestBase {
     public void testDeleteAuthorizedNotFound() throws Exception {
         mvc.perform(delete("/api/v1/todo/10")).andExpect(status().isNotFound());
     }
+
+    @Test
+    public void testSearchUnAuthorized() throws Exception {
+        mvc.perform(get("/api/v1/todo/search/t")).andExpect(status().isUnauthorized());
+    }
+
+    @WithMockUser(username = "user")
+    @Test
+    public void testSearchAuthorized() throws Exception {
+        mvc.perform(get("/api/v1/todo/search/my")).andExpect(status().isOk());
+    }
 }
