@@ -38,4 +38,6 @@ public class UserService implements UserDetailsService {
     public User getCurrentUser() {
         return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
+
+
 }
