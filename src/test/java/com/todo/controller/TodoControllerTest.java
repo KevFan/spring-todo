@@ -22,35 +22,44 @@ public class TodoControllerTest extends ApiTestBase {
 
     @Test
     public void testCreateUnAuthorized() throws Exception {
-        mvc.perform(post("/api/v1/todo").contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(post("/api/v1/todo")
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"contents\": \"my todo\"}")).andExpect(status().isUnauthorized());
     }
 
     @WithMockUser(username = "user")
     @Test
     public void testCreateAuthorized() throws Exception {
-        mvc.perform(post("/api/v1/todo").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"contents\": \"my todo\"}")).andExpect(status().isCreated());
+        mvc.perform(post("/api/v1/todo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"contents\": \"my todo\"}"))
+                .andExpect(status().isCreated());
     }
 
     @Test
     public void testUpdateUnAuthorized() throws Exception {
-        mvc.perform(put("/api/v1/todo/1").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"contents\": \"updated todo\"}")).andExpect(status().isUnauthorized());
+        mvc.perform(put("/api/v1/todo/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"contents\": \"updated todo\"}"))
+                .andExpect(status().isUnauthorized());
     }
 
     @WithMockUser(username = "user")
     @Test
     public void testUpdateAuthorized() throws Exception {
-        mvc.perform(put("/api/v1/todo/2").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"contents\": \"updated todo\"}")).andExpect(status().isAccepted());
+        mvc.perform(put("/api/v1/todo/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"contents\": \"updated todo\"}"))
+                .andExpect(status().isAccepted());
     }
 
     @WithMockUser(username = "user")
     @Test
     public void testUpdateAuthorizedNotFound() throws Exception {
-        mvc.perform(put("/api/v1/todo/10").contentType(MediaType.APPLICATION_JSON)
-                .content("{\"contents\": \"updated todo\"}")).andExpect(status().isNotFound());
+        mvc.perform(put("/api/v1/todo/10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"contents\": \"updated todo\"}"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
