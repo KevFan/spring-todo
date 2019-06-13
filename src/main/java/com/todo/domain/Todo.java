@@ -27,7 +27,8 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String content) {
+    public Todo(String content, User user) {
         this.content = content;
+        this.user = user;
     }
 }

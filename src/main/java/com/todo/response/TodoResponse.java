@@ -9,6 +9,15 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 public class TodoResponse {
-    HttpStatus httpStatus;
-    Todo todo;
+    private Todo todo;
+    private HttpStatus httpStatus;
+
+    public TodoResponse(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
+    public TodoResponse(Todo todo, HttpStatus httpStatus) {
+        this.todo = todo;
+        this.httpStatus = httpStatus;
+    }
 }

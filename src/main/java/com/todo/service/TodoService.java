@@ -27,29 +27,24 @@ public class TodoService {
     }
 
     public TodoResponse create(TodoDTO todoDTO) {
-        Todo todo = new Todo(todoDTO.getContents());
-        todo.setUser(userService.getCurrentUser());
+        Todo todo = new Todo(todoDTO.getContents(), userService.getCurrentUser());
         todoRepository.save(todo);
 
-        TodoResponse response = new TodoResponse();
-        response.setHttpStatus(HttpStatus.CREATED);
-        response.setTodo(todo);
-
-        return response;
+        return new TodoResponse(todo, HttpStatus.CREATED);
     }
 
     public TodoResponse update(Long id, TodoDTO todoDTO) {
-        TodoResponse todoResponse = new TodoResponse();
+        TodoResponse todoResponse;
 
         Todo todo = todoRepository.findByIdAndUser(id, userService.getCurrentUser());
         if (todo != null) {
             todo.setContent(todoDTO.getContents());
             todoRepository.save(todo);
 
-            todoResponse.setHttpStatus(HttpStatus.ACCEPTED);
-            todoResponse.setTodo(todo);
+            todoResponse = new TodoResponse(todo, HttpStatus.ACCEPTED);
+
         } else {
-            todoResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+            todoResponse = new TodoResponse(HttpStatus.NOT_FOUND);
         }
 
         return todoResponse;
