@@ -1,5 +1,6 @@
 package com.todo.controller;
 
+import com.todo.base.IntegrationTestBase;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -7,7 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class TodoControllerTest extends ApiTestBase {
+public class TodoControllerTest extends IntegrationTestBase {
 
     @Test
     public void testFindAllUnAuthorized() throws Exception {

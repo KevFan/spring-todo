@@ -1,4 +1,4 @@
-package com.todo.controller;
+package com.todo.base;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class ApiTestBase {
+public abstract class IntegrationTestBase {
     @Autowired
     protected WebApplicationContext context;
 

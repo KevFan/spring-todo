@@ -1,5 +1,6 @@
 package com.todo.controller;
 
+import com.todo.base.IntegrationTestBase;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
@@ -7,7 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-public class AuthenticationTest extends ApiTestBase {
+public class AuthenticationTest extends IntegrationTestBase {
     @Test
     public void testLoginUnSuccessful() throws Exception{
         mvc.perform(post("/login")
