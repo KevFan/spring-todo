@@ -21,9 +21,7 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     public User create(UserDTO userDTO) {
-        User user = new User();
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setUsername(userDTO.getUsername());
+        User user = new User(userDTO.getUsername(), passwordEncoder.encode(userDTO.getPassword()));
 
         userRepository.save(user);
 
@@ -38,6 +36,4 @@ public class UserService implements UserDetailsService {
     public User getCurrentUser() {
         return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
-
-
 }
