@@ -12,7 +12,7 @@ public class TodoControllerTest extends IntegrationTestBase {
 
     @Test
     public void testFindAllUnAuthorized() throws Exception {
-        mvc.perform(get("/api/v1/todo")).andExpect(status().isUnauthorized());
+        mvc.perform(get("/api/v1/todo")).andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "user")
@@ -25,7 +25,7 @@ public class TodoControllerTest extends IntegrationTestBase {
     public void testCreateUnAuthorized() throws Exception {
         mvc.perform(post("/api/v1/todo")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"contents\": \"my todo\"}")).andExpect(status().isUnauthorized());
+                .content("{\"contents\": \"my todo\"}")).andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "user")
@@ -42,7 +42,7 @@ public class TodoControllerTest extends IntegrationTestBase {
         mvc.perform(put("/api/v1/todo/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"contents\": \"updated todo\"}"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "user")
@@ -65,7 +65,7 @@ public class TodoControllerTest extends IntegrationTestBase {
 
     @Test
     public void testDeleteUnAuthorized() throws Exception {
-        mvc.perform(delete("/api/v1/todo/1")).andExpect(status().isUnauthorized());
+        mvc.perform(delete("/api/v1/todo/1")).andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "user")
@@ -82,7 +82,7 @@ public class TodoControllerTest extends IntegrationTestBase {
 
     @Test
     public void testSearchUnAuthorized() throws Exception {
-        mvc.perform(get("/api/v1/todo/search/t")).andExpect(status().isUnauthorized());
+        mvc.perform(get("/api/v1/todo/search/t")).andExpect(status().isForbidden());
     }
 
     @WithMockUser(username = "user")
