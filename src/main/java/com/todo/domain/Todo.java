@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * User: kevinfan
@@ -20,6 +21,12 @@ public class Todo {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private Date createdDate;
+
+    @Column(nullable = false)
+    private Date updatedDate;
+
     @OneToOne
     @JsonIgnore
     private User user;
@@ -30,5 +37,7 @@ public class Todo {
     public Todo(String content, User user) {
         this.content = content;
         this.user = user;
+        createdDate = new Date();
+        updatedDate = new Date();
     }
 }
