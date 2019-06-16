@@ -24,6 +24,9 @@ Application would be then served on `http://localhost:8080`
 ```
 This would run the tests and generate a test code coverage report to `build/reports/jacoco/test/html/index.html`
 
+### API 
+[API.md](API.md) for available APIs.
+
 ### Improvements
 * Should use external database such MySql instead of H2 file
 * Todo APIs can be expanded for showing history of Todo
