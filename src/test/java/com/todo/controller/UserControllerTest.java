@@ -14,6 +14,14 @@ public class UserControllerTest extends IntegrationTestBase {
         mvc.perform(post("/api/v1/user")
                 .content("{\"username\": \"newUser\", \"password\": \"password\"}")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testUserAlreadyExists() throws Exception{
+        mvc.perform(post("/api/v1/user")
+                .content("{\"username\": \"user\", \"password\": \"password\"}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }
