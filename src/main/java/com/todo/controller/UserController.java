@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
  * User: kevinfan
  * Date: 2019-06-12
  */
+@RequestMapping(path = "/api/v1/user")
 @RestController
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = "/api/v1/user", method = RequestMethod.POST)
+    @RequestMapping(path = "", method = RequestMethod.POST)
     public User create(@RequestBody UserDTO userDTO) {
         return userService.create(userDTO);
     }

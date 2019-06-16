@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuthenticationTest extends IntegrationTestBase {
     @Test
     public void testLoginUnSuccessful() throws Exception{
-        mvc.perform(post("/api/authenticate")
+        mvc.perform(post("/api/v1/authenticate")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .param("username", "user")
                 .param("password", "wrongPassword"))
@@ -20,7 +20,7 @@ public class AuthenticationTest extends IntegrationTestBase {
 
     @Test
     public void testLoginSuccessful() throws Exception{
-        mvc.perform(post("/api/authenticate")
+        mvc.perform(post("/api/v1/authenticate")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .param("username", "user")
                 .param("password", "password"))

@@ -6,6 +6,7 @@ import com.todo.dto.UserDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -28,6 +29,11 @@ public class UserServiceTest extends IntegrationTestBase {
     @Test
     public void testLoadUserByUsername() {
         Assert.assertEquals("user", userService.loadUserByUsername("user").getUsername());
+    }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void testLoadUserByUsernameNotFound() {
+        userService.loadUserByUsername("nonExistentUser");
     }
 
     @WithMockUser(username = "user")

@@ -34,8 +34,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails userDetails = userRepository.findByUsername(username);
         if (userDetails == null) {
-            log.info("User - " + username + " does not exist");
-            return null;
+            throw new UsernameNotFoundException("User - " + username + " does not exist");
         }
         return userDetails;
     }
