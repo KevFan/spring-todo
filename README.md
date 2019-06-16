@@ -25,7 +25,9 @@ Application would be then served on `http://localhost:8080`
 This would run the tests and generate a test code coverage report to `build/reports/jacoco/test/html/index.html`
 
 ### Improvements
-* Should use external database such MySql instead of H2
+* Should use external database such MySql instead of H2 file
+* Todo APIs can be expanded for showing history of Todo
+* Allow sharing of Todo between users
 
 ### Reference Documentation
 * [Spring Security for a REST API](https://www.baeldung.com/securing-a-restful-web-service-with-spring-security)
