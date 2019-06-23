@@ -1,6 +1,7 @@
 package com.todo.controller;
 
 import com.todo.base.IntegrationTestBase;
+import com.todo.domain.Todo;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -48,7 +49,8 @@ public class TodoControllerTest extends IntegrationTestBase {
     @WithMockUser(username = "user")
     @Test
     public void testUpdateAuthorized() throws Exception {
-        mvc.perform(put("/api/v1/todo/2")
+        Todo todo = todoRepository.findAll().get(0);
+        mvc.perform(put("/api/v1/todo/" + todo.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"contents\": \"updated todo\"}"))
                 .andExpect(status().isAccepted());
@@ -71,7 +73,8 @@ public class TodoControllerTest extends IntegrationTestBase {
     @WithMockUser(username = "user")
     @Test
     public void testDeleteAuthorized() throws Exception {
-        mvc.perform(delete("/api/v1/todo/1")).andExpect(status().isOk());
+        Todo todo = todoRepository.findAll().get(0);
+        mvc.perform(delete("/api/v1/todo/" + todo.getId())).andExpect(status().isOk());
     }
 
     @WithMockUser(username = "user")

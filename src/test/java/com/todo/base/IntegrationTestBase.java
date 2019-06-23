@@ -1,5 +1,10 @@
 package com.todo.base;
 
+import com.todo.domain.Todo;
+import com.todo.domain.User;
+import com.todo.repository.TodoRepository;
+import com.todo.repository.UserRepository;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,12 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class IntegrationTestBase {
     @Autowired
+    protected UserRepository userRepository;
+
+    @Autowired
+    protected TodoRepository todoRepository;
+
+    @Autowired
     protected WebApplicationContext context;
 
     protected MockMvc mvc;
@@ -27,5 +38,18 @@ public abstract class IntegrationTestBase {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+        User user = new User("user", "$2a$10$y.9Bnm2HX2XBI4grbjjBZesi5ntrw2ICT4g5Ad3YjqKHoQhi5AZPq");
+        userRepository.save(user);
+        userRepository.save(new User("user2", "$2a$10$y.9Bnm2HX2XBI4grbjjBZesi5ntrw2ICT4g5Ad3YjqKHoQhi5AZPq"));
+
+        todoRepository.save(new Todo("My inserted todo", user));
+        todoRepository.save(new Todo("My inserted todo 2", user));
+        todoRepository.save(new Todo("My inserted todo 3", user));
+    }
+
+    @After
+    public void cleanup() {
+        todoRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }
