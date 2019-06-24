@@ -67,6 +67,7 @@ Returns status:
 
 ### POST JSON /api/v1/todo
 Creates a todo for the current user
+
 Required params:
 ```json
 {
@@ -88,6 +89,7 @@ Returns status:
 
 ### PUT JSON /api/v1/todo/:id
 Updates a todo of id if owned by the current user
+
 Required params:
 * `id`
 ```json
