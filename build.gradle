@@ -1,12 +1,19 @@
+buildscript {
+	dependencies {
+		classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
 	id 'java'
 	id 'jacoco'
 }
 
+apply plugin: 'com.palantir.docker'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com'
+group = 'kevfan11'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -38,4 +45,22 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+bootJar {
+	baseName = 'spring-todo-docker'
+	version =  '0.1.0'
+}
+
+task unpack(type: Copy) {
+	dependsOn bootJar
+	from(zipTree(tasks.bootJar.outputs.files.singleFile))
+	into("build/dependency")
+}
+
+
+docker {
+	name "${project.group}/${bootJar.baseName}"
+	copySpec.from(tasks.unpack.outputs).into("dependency")
+	buildArgs(['DEPENDENCY': "dependency"])
 }
